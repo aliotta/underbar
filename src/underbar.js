@@ -341,7 +341,7 @@
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
     var output = array.slice(0);
-    for (var i =0; i < 100; i++){
+    for (var i =0; i < 100 * array.length; i++){
       var random = Math.floor(array.length * Math.random());
       output.push(output.splice(random, 1)[0]);
     }
@@ -360,13 +360,28 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
-  };
+    var output = [];
+    _.each(collection, function(element, iterator, __){
+      if (typeof functionOrKey === "function"){
+        output[iterator] = functionOrKey.call(element,element);
+      } else {
+        output[iterator] = element[functionOrKey](element);
+      }
+    });
+    return output;
+};
 
   // Sort the object's values by a criterion produced by an iterator.
   // If iterator is a string, sort objects by that property with the name
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    var output = [];
+    if (typeof iterator === "string"){
+      
+    } else {
+
+    }
   };
 
   // Zip together two or more arrays with elements of the same index
