@@ -376,12 +376,6 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
-    var output = [];
-    if (typeof iterator === "string"){
-      
-    } else {
-
-    }
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -390,6 +384,16 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var output = [];
+    var args = arguments;
+    _.each(arguments[0],function(element, iterator, collection){
+      var currentElement = [];
+      _.each(args,function(argumentElement, argumnetIterator, __){
+        currentElement.push(argumentElement[iterator]);
+      });
+      output.push(currentElement);
+    });
+    return output
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
