@@ -386,9 +386,9 @@
   _.zip = function() {
     var output = [];
     var args = arguments;
-    _.each(arguments[0],function(element, iterator, collection){
+    _.each(arguments[0],function (element, iterator, collection){
       var currentElement = [];
-      _.each(args,function(argumentElement, argumnetIterator, __){
+      _.each(args,function (argumentElement, argumnetIterator, __){
         currentElement.push(argumentElement[iterator]);
       });
       output.push(currentElement);
@@ -406,11 +406,38 @@
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+    var output = [];
+    var argArray = Array.prototype.slice.call(arguments);
+    _.each(argArray[0], function (element, iterator, collection){
+      var result = "true";
+      _.each(argArray, function (argumentElement, argumnetIterator, __){
+        if (_.indexOf(argumentElement, element) === -1){
+          result = "false";
+        }
+      });
+      if (result === "true"){
+        output.push(element);
+      }
+    });
+    return output;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var output = [];
+    var firstArray = arguments[0];
+    var argArray = Array.prototype.slice.call(arguments, 1);
+    var checkerArray = [];
+    _.each(argArray, function(element, iterator, collection){
+      checkerArray = checkerArray.concat(element);
+    })
+    _.each(firstArray, function(element, iterator, collection){
+      if (_.indexOf(checkerArray, element) === -1){
+        output.push(element)
+      }
+    });
+    return output;
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
